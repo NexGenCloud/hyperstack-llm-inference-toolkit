@@ -1,0 +1,88 @@
+services:
+  app:
+    build:
+      args:
+        APP_ENVIRONMENT: prod
+    container_name: llm_binding.prod.backend
+    ports:
+      - "5001:5001"
+    command: bash -c "/app/scripts/wait_for_db.sh && /app/scripts/entrypoint-prod.sh"
+    environment:
+      - APP_SETTINGS=config.ProductionConfig
+    volumes:
+      - be_exec_prod:/app/scripts
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z 0.0.0.0 5001 || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      db:
+        condition: service_healthy
+
+  redis:
+    container_name: llm_binding.prod.redis
+    volumes:
+      - redis_data_prod:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  db:
+    container_name: llm_binding.prod.db
+    volumes:
+      - mysql_data_prod:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -udevuser -pdevpass || exit 1"]
+      interval: 30s
+      timeout: 5s
+
+  streamlit_app:
+    container_name: llm_binding.prod.frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - API_HOST=http://app:5001
+    volumes:
+      - fe_exec_prod:/app/.streamlit
+    depends_on:
+      app:
+        condition: service_healthy
+      db:
+        condition: service_healthy
+
+  worker:
+    build:
+      args:
+        APP_ENVIRONMENT: prod
+    container_name: llm_binding.prod.worker
+    command: celery --app worker.tasks.celery worker --loglevel=info
+    env_file:
+      - .env
+    volumes:
+      - be_exec_prod:/app/scripts
+    depends_on:
+      app:
+        condition: service_healthy
+
+  beat:
+    build:
+      args:
+        APP_ENVIRONMENT: prod
+    container_name: llm_binding.prod.beat
+    command: celery --app worker.celery_beat.celery_beat beat --loglevel=info
+    env_file:
+      - .env
+    volumes:
+      - be_exec_prod:/app/scripts
+    depends_on:
+      app:
+        condition: service_healthy
+
+volumes:
+  be_exec_prod:
+  fe_exec_prod:
+  mysql_data_prod:
+  redis_data_prod:

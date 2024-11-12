@@ -1,0 +1,78 @@
+services:
+  app:
+    build:
+      args:
+        APP_ENVIRONMENT: dev
+    stdin_open: true
+    tty: true
+    ports:
+      - "5001:5001"
+    command: bash -c "/app/scripts/wait_for_db.sh && /app/scripts/entrypoint-dev.sh"
+    environment:
+      - APP_SETTINGS=config.LocalConfig
+    container_name: llm_binding.dev.backend
+    volumes:
+      - ./backend/:/app
+      - be_exec_dev:/app/scripts
+    depends_on:
+      - db
+
+  redis:
+    container_name: llm_binding.dev.redis
+    volumes:
+      - redis_data_dev:/data
+
+  db:
+    container_name: llm_binding.dev.db
+    volumes:
+      - mysql_data_dev:/var/lib/mysql
+    entrypoint:
+      sh -c "
+        echo 'CREATE DATABASE IF NOT EXISTS $MYSQL_TEST_DATABASE; GRANT ALL PRIVILEGES ON $MYSQL_TEST_DATABASE.* TO $MYSQL_USER;' > /docker-entrypoint-initdb.d/init.sql;
+        /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"
+
+  streamlit_app:
+    container_name: llm_binding.dev.frontend
+    stdin_open: true
+    tty: true
+    ports:
+      - "8501:8501"
+    environment:
+      - API_HOST=http://app:5001
+    volumes:
+      - ./frontend/:/app
+      - fe_exec_dev:/app/.streamlit
+
+  worker:
+    build:
+      args:
+        APP_ENVIRONMENT: dev
+    container_name: llm_binding.dev.worker
+    command: celery --app worker.tasks.celery worker --loglevel=info
+    env_file:
+      - .env
+    volumes:
+      - ./backend/:/app
+      - be_exec_dev:/app/scripts
+    depends_on:
+      - app
+
+  beat:
+    build:
+      args:
+        APP_ENVIRONMENT: dev
+    container_name: llm_binding.dev.beat
+    command: celery --app worker.celery_beat.celery_beat beat --loglevel=info
+    env_file:
+      - .env
+    depends_on:
+      - worker
+    volumes:
+      - ./backend/:/app
+      - be_exec_dev:/app/scripts
+
+volumes:
+  be_exec_dev:
+  fe_exec_dev:
+  mysql_data_dev:
+  redis_data_dev:
