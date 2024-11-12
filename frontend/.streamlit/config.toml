@@ -1,0 +1,17 @@
+[theme]
+
+# Primary accent for interactive elements
+primaryColor = '#883AE1'
+
+# Background color for the main content area
+backgroundColor = 'white'
+
+# Background color for sidebar and most interactive widgets
+secondaryBackgroundColor = '#F9F5FE'
+
+# Color used for almost all text
+textColor = 'black'
+
+[client]
+
+showSidebarNavigation = false

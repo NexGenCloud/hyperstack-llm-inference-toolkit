@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - inference_network
+
+  redis:
+    image: redis:bookworm
+    ports:
+      - "6379"
+    restart: always
+    networks:
+      - inference_network
+
+  db:
+    image: mysql:9.0
+    ports:
+      - "3306"
+    env_file:
+      - .env
+    networks:
+      - inference_network
+
+  streamlit_app:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - app
+    networks:
+      - inference_network
+
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      - redis
+      - app
+    networks:
+      - inference_network
+
+  beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    depends_on:
+      - worker
+    networks:
+      - inference_network
+
+networks:
+  inference_network:
+    name: inference_network
+    driver: bridge

@@ -1,0 +1,8 @@
+loguru==0.7.2
+pandas==2.2.2
+psycopg2-binary==2.9.9
+requests==2.32.3
+sqlalchemy==2.0.31
+streamlit==1.40.0
+streamlit-extras==0.4.3
+plotly==5.24.1
