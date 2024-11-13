@@ -24,26 +24,9 @@ Contributions and feedback are encouraged to keep expanding its capabilities for
 
 ## Screenshots
 
-<div style="display: flex; flex-wrap: wrap; gap: 2px;">
-  <div style="flex: 1 1 200px; box-sizing: border-box;">
-    <img src="./docs/images/01-home.png" alt="Home Screen" style="width: 100%; height: auto; max-width: 200px;">
-  </div>
-  <div style="flex: 1 1 200px; box-sizing: border-box;">
-    <img src="./docs/images/02-models.png" alt="Models Screen" style="width: 100%; height: auto; max-width: 200px;">
-  </div>
-  <div style="flex: 1 1 200px; box-sizing: border-box;">
-    <img src="./docs/images/03-deploy-models.png" alt="Deploy Models" style="width: 100%; height: auto; max-width: 200px;">
-  </div>
-  <div style="flex: 1 1 200px; box-sizing: border-box;">
-    <img src="./docs/images/04-playground.png" alt="Playground" style="width: 100%; height: auto; max-width: 200px;">
-  </div>
-  <div style="flex: 1 1 200px; box-sizing: border-box;">
-    <img src="./docs/images/05-api-keys.png" alt="API Keys" style="width: 100%; height: auto; max-width: 200px;">
-  </div>
-  <div style="flex: 1 1 200px; box-sizing: border-box;">
-    <img src="./docs/images/06-monitoring.png" alt="Monitoring" style="width: 100%; height: auto; max-width: 200px;">
-  </div>
-</div>
+| ![Home Screen](./docs/images/01-home.png)      | ![Models Screen](./docs/images/02-models.png) | ![Deploy Models](./docs/images/03-deploy-models.png) |
+| ---------------------------------------------- | --------------------------------------------- | ---------------------------------------------------- |
+| ![Playground](./docs/images/04-playground.png) | ![API Keys](./docs/images/05-api-keys.png)    | ![Monitoring](./docs/images/06-monitoring.png)       |
 
 ## Getting started
 
