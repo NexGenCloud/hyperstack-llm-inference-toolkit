@@ -22,6 +22,46 @@ Highlighted features include:
 
 Contributions and feedback are encouraged to keep expanding its capabilities for the LLM community!
 
+## Screenshots
+
+<style>
+  .image-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+  .image-grid img {
+    width: 100%;
+    height: auto;
+    max-width: 200px; 
+  }
+  .image-item {
+    flex: 1 1 200px; 
+    box-sizing: border-box;
+  }
+</style>
+
+<div class="image-grid">
+  <div class="image-item">
+    <img src="./docs/images/01-home.png" alt="Home Screen">
+  </div>
+  <div class="image-item">
+    <img src="./docs/images/02-models.png" alt="Models Screen">
+  </div>
+  <div class="image-item">
+    <img src="./docs/images/03-deploy-models.png" alt="Deploy Models">
+  </div>
+  <div class="image-item">
+    <img src="./docs/images/04-playground.png" alt="Playground">
+  </div>
+  <div class="image-item">
+    <img src="./docs/images/05-api-keys.png" alt="API Keys">
+  </div>
+  <div class="image-item">
+    <img src="./docs/images/06-monitoring.png" alt="Monitoring">
+  </div>
+</div>
+
 ## Getting started
 
 Please follow the instructions to set this platform up on a machine.
