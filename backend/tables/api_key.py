@@ -24,7 +24,7 @@ class APIKey(db.Model):
         unique=True,
         index=True,
     )
-    allowed_rpm = db.Column(db.Integer, default=20)
+    allowed_rpm = db.Column(db.Integer, default=160)
     enabled = db.Column(db.Boolean, default=True)
 
     @classmethod

@@ -28,7 +28,7 @@ def create_replicas(instance_data, app_url, model_id):
     instance_data.pop("model_name", None)
     payload = {
         "endpoint": "",
-        "rate_limit": 20,
+        "rate_limit": 160,
         "create_vm": True,
         "vm_creation_details": instance_data,
     }
