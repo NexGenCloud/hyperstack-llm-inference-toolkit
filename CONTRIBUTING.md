@@ -17,12 +17,12 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 
 1. Fork the repo and create your branch from `main`.
 2. If you've added code that should be tested, add tests.
-3. If you've changed APIs, update the documentation.
+3. If you've changed code, update the documentation.
 4. Ensure the test suite passes.
 5. Make sure your code lints.
 6. Issue that pull request!
 
-## Report bugs using Github's [issues](https://github.com/NexGenCloud/terraform-provider-hyperstack/issues)
+## Report bugs using Github's [issues](https://github.com/NexGenCloud/hyperstack-llm-inference-toolkit/issues)
 
 We use GitHub issues to track public bugs. Report a bug by [opening a new issue](); it's that easy!
 
@@ -52,7 +52,9 @@ To run the toolkit locally, follow the steps described in the [Readme/#deploymen
 
 ### Testing the Hyperstack LLM Inference Toolkit
 
-To test the toolkit, run the following command:
+#### Unit tests
+
+To run the unit tests of Toolkit, run the following command:
 
 ```bash
 # Run the toolkit locally
@@ -60,12 +62,16 @@ make dev-up
 
 # Run the unit tests
 make dev-test
+```
 
-# Run the toolkit in the cloud
-make deploy-app
+#### Integration tests
 
-# SSH into your proxy-vm
+To run the integration tests, make sure to deploy the MISTRAL model. See instructions in the [docs/makefile-docs.md](./docs/makefile-docs.md#integration-tests-pytest)
 
-# Run the integration tests
+```bash
+# Run the toolkit locally
+make dev-up
+
+# Run the unit tests
 make dev-integration-test
 ```
