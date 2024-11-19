@@ -92,7 +92,7 @@ The MISTRAL model (mistralai/Mistral-7B-Instruct-v0.2) should be added to the ap
 as well but need to be added to model enum in the integration tests if we want to make that work).
 Name and the Endpoint URL of the model should be set up before running the integration tests.
 
-You can use the UI to deploy the model. The Docker run command to deploy the MISRAL model is as follows. Please note: this model requires gated access (see instructions [here](https://huggingface.co/docs/transformers.js/en/guides/private))
+You can use the UI to deploy the model. The Docker run command to deploy the MISTRAL model is as follows. Please note: this model requires gated access (see instructions [here](https://huggingface.co/docs/transformers.js/en/guides/private))
 
 ```
 export HF_TOKEN="[replace-token-with-gated-access]"
