@@ -92,6 +92,22 @@ The MISTRAL model (mistralai/Mistral-7B-Instruct-v0.2) should be added to the ap
 as well but need to be added to model enum in the integration tests if we want to make that work).
 Name and the Endpoint URL of the model should be set up before running the integration tests.
 
+You can use the UI to deploy the model. The Docker run command to deploy the MISRAL model is as follows. Please note: this model requires gated access (see instructions [here](https://huggingface.co/docs/transformers.js/en/guides/private))
+
+```
+export HF_TOKEN="[replace-token-with-gated-access]"
+mkdir -p /home/ubuntu/data/hf
+docker run -d --gpus all \
+    -e HF_TOKEN="$HF_TOKEN" \
+    -v /home/ubuntu/data/hf:/root/.cache/huggingface \
+    -p 8000:8000 \
+    --ipc=host --restart always \
+    vllm/vllm-openai:latest --model \
+    "mistralai/Mistral-7B-Instruct-v0.2" \
+    --gpu-memory-utilization 0.9 --max-model-len 15360 \
+    --chat-template examples/tool_chat_template_mistral.jinja
+```
+
 ```bash
 # Run all Integration test
 make dev-integration-test
