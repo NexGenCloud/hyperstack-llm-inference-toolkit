@@ -1,5 +1,5 @@
 git:
-  token: null
+  token: ''
   url: 'https://github.com/NexGenCloud/hyperstack-llm-inference-toolkit'
   branch: main
 env:
@@ -15,10 +15,10 @@ env:
   CELERY_BROKER_URL: 'redis://redis:6379'
   CELERY_RESULT_BACKEND: 'redis://redis:6379'
   HYPERSTACK_API_KEY: null
-  S3_BUCKET_NAME: null
-  S3_ENDPOINT_URL: null
-  S3_ACCESS_KEY: null
-  S3_SECRET_KEY: null
+  S3_BUCKET_NAME: ''
+  S3_ENDPOINT_URL: ''
+  S3_ACCESS_KEY: ''
+  S3_SECRET_KEY: ''
   DB_BACKUP_SCHEDULE_MIN: '0'
   DB_BACKUP_SCHEDULE_HOUR: '*/6'
   DB_BACKUP_SCHEDULE_DAY_OF_WEEK: '*'
