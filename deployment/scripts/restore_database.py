@@ -49,9 +49,16 @@ def download_from_s3(dump_file_name: str, local_path: str):
 
 
 def apply_dump_to_db(dump_file_path: str):
+    command = [
+        'mysql',
+        '-h', DB_HOST,
+        '-u', 'root',
+        f'-p{DB_ROOT_PASSWORD}',
+        DB_NAME
+    ]
     try:
-        command = f'mysql -h {DB_HOST} -u root -p{DB_ROOT_PASSWORD} {DB_NAME} < {dump_file_path}'
-        subprocess.run(command, shell=True, check=True)
+        with open(dump_file_path, 'r') as f:
+            subprocess.run(command, stdin=f, shell=False, check=True)
         print(f'Applied dump {os.path.basename(dump_file_path)} to database {DB_NAME}')
     except Exception as exception:
         print('Unable to apply dump file.')
