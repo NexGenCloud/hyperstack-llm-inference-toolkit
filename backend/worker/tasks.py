@@ -120,8 +120,15 @@ def backup_db():
 
     try:
         # Dump MySQL database
-        dump_command = f"mysqldump -h {DB_HOST} -u root -p{DB_ROOT_PASSWORD} {DB_NAME} > {backup_file}"
-        subprocess.run(dump_command, shell=True, check=True)
+        dump_command = [
+            'mysqldump',
+            '-h', DB_HOST,
+            '-u', 'root',
+            f'-p{DB_ROOT_PASSWORD}',
+            DB_NAME
+        ]
+        with open(backup_file, 'w') as f:
+            subprocess.run(dump_command, stdout=f, shell=False, check=True)
 
         # Create s3 client
         s3_client = boto3.client(
